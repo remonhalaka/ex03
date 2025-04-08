@@ -1,0 +1,57 @@
+POST http://localhost:3000/api/auth/admin
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "motDePasseParDefaut"
+}
+
+POST http://localhost:3000/api/auth/new
+Content-Type: application/json
+Authorization: Bearer <admin_jwt_token>
+
+{
+  "username": "nouvelUtilisateur",
+  "password": "motDePasseUtilisateur",
+  "role": "utilisateur"
+}
+
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "nouvelUtilisateur",
+  "password": "motDePasseUtilisateur"
+}
+
+POST http://localhost:3000/api/tickets
+Content-Type: application/json
+Authorization: Bearer <jeton_jwt_utilisateur>
+
+{
+  "title": "Problème de connexion",
+  "description": "Je ne peux pas me connecter à mon compte.",
+  "status": "open",
+  "userId": 1,
+  "technicianId": null,
+  "createdAt": "2025-04-10T12:00:00Z",
+  "closedAt": null
+}
+
+GET http://localhost:3000/api/tickets
+Authorization: Bearer <jeton_jwt_technicien>
+
+GET http://localhost:3000/api/tickets/1
+Authorization: Bearer <jeton_jwt_utilisateur>
+
+PUT http://localhost:3000/api/tickets/1
+Content-Type: application/json
+Authorization: Bearer <jeton_jwt_technicien>
+
+{
+  "status": "in progress",
+  "technicianId": 2
+}
+
+DELETE http://localhost:3000/api/admin/tickets/1
+Authorization: Bearer <jeton_jwt_admin>
